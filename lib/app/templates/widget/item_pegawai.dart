@@ -51,6 +51,7 @@ class ItemPegawai extends StatelessWidget {
           controller.provinsiController.clear();
           controller.kotkabController.clear();
           controller.kecamatanController.clear();
+          controller.kelurahanController.clear();
         });
       },
       child: Container(
