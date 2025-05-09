@@ -85,10 +85,10 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
             customDropdownWilayah<WilayahModel>(
               label: "Kelurahan",
               hint: "Pilih Kelurahan",
-              items: wilayahController.districts,
-              selectedItem: wilayahController.selectedDistrict.value,
+              items: wilayahController.villages,
+              selectedItem: wilayahController.selectedVillage.value,
               onChanged: (value) {
-                wilayahController.selectedDistrict.value = value;
+                wilayahController.selectedVillage.value = value;
                 // controller.kecamatanController.text = value!.name;
               },
               itemLabel: (e) => e.name,
