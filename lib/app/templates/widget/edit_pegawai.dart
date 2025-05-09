@@ -83,6 +83,7 @@ Future<Widget> editPegawaiDialog(HomeController controller, String idPegawai) as
                 wilayahController.selectedProvince.value = value;
                 wilayahController.selectedRegency.value = null;
                 wilayahController.selectedDistrict.value = null;
+                wilayahController.selectedVillage.value = null;
                 wilayahController.fetchRegencies(value!.id);
               },
               itemLabel: (e) => e.name,
@@ -95,6 +96,7 @@ Future<Widget> editPegawaiDialog(HomeController controller, String idPegawai) as
               onChanged: (value) {
                 wilayahController.selectedRegency.value = value;
                 wilayahController.selectedDistrict.value = null;
+                wilayahController.selectedVillage.value = null;
                 wilayahController.fetchDistricts(value!.id);
               },
               itemLabel: (e) => e.name,
@@ -104,8 +106,10 @@ Future<Widget> editPegawaiDialog(HomeController controller, String idPegawai) as
               hint: "Pilih Kecamatan",
               items: wilayahController.districts,
               selectedItem: wilayahController.selectedDistrict.value,
+              
               onChanged: (value) {
                 wilayahController.selectedDistrict.value = value;
+                wilayahController.selectedVillage.value = null;
               },
               itemLabel: (e) => e.name,
             ),

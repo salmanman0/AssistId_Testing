@@ -122,9 +122,11 @@ class ItemPegawai extends StatelessWidget {
                     wilayahController.selectedProvince.value = null;
                     wilayahController.selectedRegency.value = null;
                     wilayahController.selectedDistrict.value = null;
+                    wilayahController.selectedVillage.value = null;
                     wilayahController.provinces.clear();
                     wilayahController.regencies.clear();
                     wilayahController.districts.clear();
+                    wilayahController.villages.clear();
                   });
                 } else if (value == 'hapus') {
                   showDeletePegawaiDialog(
