@@ -1,6 +1,6 @@
 # assist_test
 
-A new Flutter project.
+Aplikasi Technical Test Assist.id
 
 ## Getting Started
 
