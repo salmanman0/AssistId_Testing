@@ -12,6 +12,9 @@ import '../font_app.dart';
 
 Widget addPegawaiDialog(HomeController controller, int idPegawai) {
   final wilayahController = Get.put(WilayahController());
+  if (wilayahController.provinces.isEmpty) {
+    wilayahController.fetchProvinces();
+  }
   return Obx(() {
     if (controller.isLoading.value) {
       return const SizedBox(

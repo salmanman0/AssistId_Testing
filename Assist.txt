@@ -1,0 +1,10 @@
+Assist V.1.1.2
+Penyesuaian pemanggilan fetch provinsi pada tambah pegawai
+
+Assist V.1.1.1
+fitur tambah pegawai dengan inputan nama, jalan, provinsi, kota/kabupaten, kecamatan, kelurahan
+fitur ubah pegawai dengan inputan nama, jalan, provinsi, kota/kabupaten, kecamatan, kelurahan dari id yang terpilih
+fitur hapus pegawai berdasarkan id yang terpilih
+fitur detail pegawai berdasarkan id yang terpilih
+pemanggilan kumpulan wilayah provinsi, kota/kabupaten, kecamatan, kelurahan dari API
+
