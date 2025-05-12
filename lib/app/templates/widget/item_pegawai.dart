@@ -10,6 +10,7 @@ import 'edit_pegawai.dart';
 import '../font_app.dart';
 
 class ItemPegawai extends StatelessWidget {
+  final BuildContext x;
   final String nama;
   final String alamat;
   final String id;
@@ -17,6 +18,7 @@ class ItemPegawai extends StatelessWidget {
   final wilayahController = Get.put(WilayahController());
   ItemPegawai({
     super.key,
+    required this.x,
     required this.nama,
     required this.alamat,
     required this.id,
@@ -86,48 +88,7 @@ class ItemPegawai extends StatelessWidget {
               color: backgroundScreen,
               onSelected: (value) {
                 if (value == 'edit') {
-                  showModalBottomSheet(
-                    context: context,
-                    backgroundColor: white,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                    ),
-                    builder: (_) => DraggableScrollableSheet(
-                      expand: false,
-                      minChildSize: 0.5,
-                      initialChildSize: 0.75,
-                      maxChildSize: 0.9,
-                      builder: (_, controllerScroll) => FutureBuilder<Widget>(
-                        future: editPegawaiDialog(controller, id),
-                        builder: (_, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator(color: primary));
-                          } else if (snapshot.hasError) {
-                            return Center(child: Text('Terjadi kesalahan: ${snapshot.error}'));
-                          } else if (!snapshot.hasData) {
-                            return const Center(child: Text('Data tidak tersedia'));
-                          } else {
-                            return SingleChildScrollView(
-                              controller: controllerScroll,
-                              child: snapshot.data!,
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                  ).whenComplete((){
-                    controller.nameController.clear();
-                    controller.jalanController.clear();
-                    wilayahController.selectedProvince.value = null;
-                    wilayahController.selectedRegency.value = null;
-                    wilayahController.selectedDistrict.value = null;
-                    wilayahController.selectedVillage.value = null;
-                    wilayahController.provinces.clear();
-                    wilayahController.regencies.clear();
-                    wilayahController.districts.clear();
-                    wilayahController.villages.clear();
-                  });
+                  editPegawaiDialog(context, controller, id);
                 } else if (value == 'hapus') {
                   showDeletePegawaiDialog(
                     context: context,

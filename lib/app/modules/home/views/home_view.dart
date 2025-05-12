@@ -65,9 +65,10 @@ class HomeView extends GetView<HomeController> {
                           return ListView.builder(
                               itemCount: controller.pegawai.length,
                               itemBuilder: (context, index) {
-                                final peg = controller.pegawai[index];
-                                controller.lastIdPeg = int.parse(peg.id);
-                                return ItemPegawai(nama: peg.nama, alamat: peg.jalan, id: peg.id, controller: controller);
+                                var panjang = controller.pegawai.length;
+                                final peg = controller.pegawai[(panjang-1) - index];
+                                controller.lastIdPeg = int.parse(controller.pegawai[panjang-1].id);
+                                return ItemPegawai(x: context, nama: peg.nama, alamat: peg.jalan, id: peg.id, controller: controller);
                               }
                             );
                           },

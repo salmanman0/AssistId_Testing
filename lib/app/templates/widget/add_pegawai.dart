@@ -15,20 +15,20 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
   if (wilayahController.provinces.isEmpty) {
     wilayahController.fetchProvinces();
   }
-  return Obx(() {
+  return Builder(
+  builder: (context) => Obx(() {
     if (controller.isLoading.value) {
-      return const SizedBox(
+      return SizedBox(
         height: 200,
-        child: Center(child: CircularProgressIndicator()),
+        child: Center(child: CircularProgressIndicator(color: primary)),
       );
     }
-
     return Padding(
       padding: EdgeInsets.only(
         left: 20.w,
         right: 20.w,
         top: 20.h,
-        bottom: 20.h + MediaQuery.of(Get.context!).viewInsets.bottom,
+        bottom: 20.h + MediaQuery.of(context).viewInsets.bottom,
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -81,6 +81,8 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
               selectedItem: wilayahController.selectedDistrict.value,
               onChanged: (value) {
                 wilayahController.selectedDistrict.value = value;
+                wilayahController.fetchVillages(value!.id);
+
                 // controller.kecamatanController.text = value!.name;
               },
               itemLabel: (e) => e.name,
@@ -140,7 +142,7 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
                             title: "Gagal",
                             message: "Lengkapi semua wilayah terlebih dahulu",
                             duration: const Duration(seconds: 3),
-                            backgroundColor: Colors.redAccent.shade100,
+                            backgroundColor: Colors.red,
                             borderRadius: 10,
                             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
                             snackPosition: SnackPosition.TOP,
@@ -150,7 +152,6 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
                         );
 
                       }
-                      Get.back();
                     },
                     child: Text("Simpan", style: poppins500(13, white)),
                   ),
@@ -161,5 +162,6 @@ Widget addPegawaiDialog(HomeController controller, int idPegawai) {
         ),
       ),
     );
-  });
+  })
+  );
 }

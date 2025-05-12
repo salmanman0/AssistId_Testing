@@ -23,20 +23,20 @@ Widget detailPegawaiDialog(HomeController controller, String idPegawai) {
   controller.kecamatanController.text = pegawai.kecamatan.name;
   controller.kelurahanController.text = pegawai.kelurahan.name;
 
-  return Obx(() {
+  return Builder(
+  builder: (context) => Obx(() {
     if (controller.isLoading.value) {
-      return const SizedBox(
+      return SizedBox(
         height: 200,
-        child: Center(child: CircularProgressIndicator()),
+        child: Center(child: CircularProgressIndicator(color: primary)),
       );
     }
-
     return Padding(
       padding: EdgeInsets.only(
         left: 20.w,
         right: 20.w,
         top: 20.h,
-        bottom: 20.h + MediaQuery.of(Get.context!).viewInsets.bottom,
+        bottom: 20.h + MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -61,5 +61,6 @@ Widget detailPegawaiDialog(HomeController controller, String idPegawai) {
         ],
       ),
     );
-  });
+  })
+  );
 }

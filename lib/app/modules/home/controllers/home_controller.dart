@@ -53,14 +53,30 @@ class HomeController extends GetxController {
     required String idPeg,
   }) async {
     try {
+      final nama = nameController.text.trim();
+      final jalan = jalanController.text.trim();
+
+      // Validasi input
+      if (nama.isEmpty || jalan.isEmpty) {
+        Get.showSnackbar(
+          GetSnackBar(
+            title: "Input Kosong",
+            message: "Nama dan jalan tidak boleh kosong.",
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            borderRadius: 10,
+            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            snackPosition: SnackPosition.TOP,
+            icon: Icon(Icons.error_outline, color: white),
+            isDismissible: true,
+          ),
+        );
+        return;
+      }
+
       isLoading.value = true;
-
-      final nama = nameController.text;
-      final jalan = jalanController.text;
-      final idBaru = idPeg;
-
       final response = await apiService.postPegawai(
-        id: idBaru,
+        id: idPeg,
         nama: nama,
         jalan: jalan,
         provinsi: {
@@ -81,10 +97,11 @@ class HomeController extends GetxController {
           "id": kelurahan.id,
           "district_id": kecamatan.id,
           "name": kelurahan.name,
-        }
+        },
       );
 
       if (response != null) {
+        Get.back();
         Get.showSnackbar(
           GetSnackBar(
             title: "Sukses",
@@ -101,12 +118,24 @@ class HomeController extends GetxController {
         getPegawai();
       }
     } catch (e) {
-      print("Gagal kirim pegawai: $e");
-      Get.snackbar("Error", e.toString());
+      Get.showSnackbar(
+        GetSnackBar(
+          title: "Gagal",
+          message: "Terjadi kesalahan teknis, silahkan ulangi",
+          duration: const Duration(seconds: 3),
+          backgroundColor: gagal,
+          borderRadius: 10,
+          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          snackPosition: SnackPosition.TOP,
+          icon: Icon(Icons.warning_amber_rounded, color: white),
+          isDismissible: true,
+        ),
+      );
     } finally {
       isLoading.value = false;
     }
   }
+
 
   Future<void> updatePegawai({
     required WilayahModel provinsi,
@@ -116,10 +145,28 @@ class HomeController extends GetxController {
     required String idPeg,
   }) async {
     try {
-      isLoading.value = true;
+      final nama = nameController.text.trim();
+      final jalan = jalanController.text.trim();
 
-      final nama = nameController.text;
-      final jalan = jalanController.text;
+      // Validasi input
+      if (nama.isEmpty || jalan.isEmpty) {
+        Get.showSnackbar(
+          GetSnackBar(
+            title: "Input Kosong",
+            message: "Nama dan jalan tidak boleh kosong.",
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+            borderRadius: 10,
+            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            snackPosition: SnackPosition.TOP,
+            icon: Icon(Icons.error_outline, color: white),
+            isDismissible: true,
+          ),
+        );
+        return;
+      }
+
+      isLoading.value = true;
 
       final response = await apiService.updatePegawai(
         id: idPeg,
@@ -147,6 +194,7 @@ class HomeController extends GetxController {
       );
 
       if (response != null) {
+        Get.back();
         Get.showSnackbar(
           GetSnackBar(
             title: "Sukses",
@@ -161,6 +209,7 @@ class HomeController extends GetxController {
           ),
         );
         getPegawai();
+        
       }
     } catch (e) {
       Get.showSnackbar(
@@ -168,7 +217,7 @@ class HomeController extends GetxController {
           title: "Gagal",
           message: "Terjadi kesalahan teknis, silahkan ulangi",
           duration: const Duration(seconds: 3),
-          backgroundColor: Colors.redAccent.shade100,
+          backgroundColor: gagal,
           borderRadius: 10,
           margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           snackPosition: SnackPosition.TOP,
@@ -176,11 +225,11 @@ class HomeController extends GetxController {
           isDismissible: true,
         ),
       );
-      Get.snackbar("Error", e.toString());
     } finally {
       isLoading.value = false;
     }
   }
+
 
   Future<void> deletePegawai(String idPeg) async {
     final response = await apiService.deletePegawai(idPeg);
@@ -206,7 +255,7 @@ class HomeController extends GetxController {
           title: "Gagal",
           message: "Terjadi kesalahan teknis, silahkan ulangi",
           duration: const Duration(seconds: 3),
-          backgroundColor: Colors.redAccent.shade100,
+          backgroundColor: gagal,
           borderRadius: 10,
           margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           snackPosition: SnackPosition.TOP,
